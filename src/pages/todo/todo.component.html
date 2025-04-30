@@ -2,18 +2,34 @@
     <h2 class="text-center">ToDo App</h2>
   
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Enter task" />
-      <button class="btn btn-primary" >Add</button>
+      <input 
+        type="text" 
+        class="form-control"
+        (keydown.enter)="addTask()"
+      [(ngModel)]="taskTitle" placeholder="Enter task" />
+      <button class="btn btn-primary" (click)="addTask()">Add</button>
     </div>
   
     <ul class="list-group">
-      <li  class="list-group-item d-flex justify-content-between align-items-center">
-        <div>
-          <input type="checkbox"/>
-          <span [class.text-decoration-line-through]="">title</span>
-        </div>
-        <button class="btn btn-danger btn-sm">Delete</button>
-      </li>
+      @for (task of tasks; track $index) {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+            <span class="me-3">{{$index + 1}}</span>
+              <input 
+                class="me-2" 
+                type="checkbox" 
+                [(ngModel)]="task.completed" 
+                />
+              
+              <span [class.text-decoration-line-through]="task.completed">{{task.title}}</span>
+              
+              @if (task.completed) {
+                <span>Done</span>
+              }
+            </div>
+            <button class="btn btn-danger btn-sm" (click)="onDelete(task.id)">Delete</button>
+          </li>
+      }
     </ul>
-  </div>
+  </div>    
   
