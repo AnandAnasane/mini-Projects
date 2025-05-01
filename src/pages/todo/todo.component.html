@@ -50,3 +50,148 @@
     </ul>
   </div>    
   
+
+  <!-- How it Works Section -->
+
+  <div class="container mt-5">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0 text-center">📘 How This ToDo App Works (With Code)</h4>
+      </div>
+      <div class="card-body">
+        <div class="accordion" id="todoHelpAccordion">
+  
+          <!-- Add Task -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingAdd">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdd" aria-expanded="true" aria-controls="collapseAdd">
+                🧾 Add a Task
+              </button>
+            </h2>
+            <div id="collapseAdd" class="accordion-collapse collapse show" aria-labelledby="headingAdd" data-bs-parent="#todoHelpAccordion">
+              <div class="accordion-body">
+                <p>Use the input field to enter a task. Press <kbd>Enter</kbd> or click <strong>Add</strong> to save it.</p>
+                <pre><code class="language-typescript">
+  addTask() &#123;
+    if (this.taskTitle) &#123;
+      const newTask: Task = &#123;
+        id: Date.now(),
+        title: this.taskTitle.toUpperCase(),
+        completed: false
+      &#125;;
+      this.tasks.push(newTask);
+      this.taskTitle = '';
+      this.saveTasks();
+    &#125;
+  &#125;
+                </code></pre>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Edit Task -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingEdit">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">
+                ✏️ Edit a Task
+              </button>
+            </h2>
+            <div id="collapseEdit" class="accordion-collapse collapse" aria-labelledby="headingEdit" data-bs-parent="#todoHelpAccordion">
+              <div class="accordion-body">
+                <p>Click <strong>Edit</strong> to load the task in the input box. Modify it and click <strong>Update</strong>.</p>
+                <pre><code class="language-typescript">
+  onEdit(id: number) &#123;
+    const editTask = this.tasks.find(e => e.id === id);
+    if (editTask) &#123;
+      this.taskTitle = editTask.title;
+      this.editedId = editTask.id;
+    &#125;
+  &#125;
+  
+  onUpdate() &#123;
+    if (this.editedId !== null) &#123;
+      const updatedTask = this.tasks.find(e => e.id === this.editedId);
+      if (updatedTask) &#123;
+        updatedTask.title = this.taskTitle.toUpperCase();
+      &#125;
+    &#125;
+    this.editedId = null;
+    this.taskTitle = '';
+    this.saveTasks();
+  &#125;
+                </code></pre>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Checkbox -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingToggle">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseToggle" aria-expanded="false" aria-controls="collapseToggle">
+                ✅ Mark Task as Completed or Pending
+              </button>
+            </h2>
+            <div id="collapseToggle" class="accordion-collapse collapse" aria-labelledby="headingToggle" data-bs-parent="#todoHelpAccordion">
+              <div class="accordion-body">
+                <p>Toggle the checkbox to mark task status.</p>
+                <pre><code class="language-html">
+  &lt;input 
+    class="me-2" 
+    type="checkbox" 
+    [(ngModel)]="task.completed" /&gt;
+                </code></pre>
+                <pre><code class="language-html">
+  &lt;span [class.text-decoration-line-through]="task.completed"&gt;&#123; &#123; task.title &#125;&#125;&lt;/span&gt;
+                </code></pre>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Delete -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingDelete">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDelete" aria-expanded="false" aria-controls="collapseDelete">
+                🗑️ Delete a Task
+              </button>
+            </h2>
+            <div id="collapseDelete" class="accordion-collapse collapse" aria-labelledby="headingDelete" data-bs-parent="#todoHelpAccordion">
+              <div class="accordion-body">
+                <p>Click the <strong>Delete</strong> button to remove a task permanently.</p>
+                <pre><code class="language-typescript">
+  onDelete(id: number) &#123;
+    this.tasks = this.tasks.filter(task => task.id !== id);
+    this.saveTasks();
+  &#125;
+                </code></pre>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Save to LocalStorage -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingStorage">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStorage" aria-expanded="false" aria-controls="collapseStorage">
+                💾 How Tasks are Saved
+              </button>
+            </h2>
+            <div id="collapseStorage" class="accordion-collapse collapse" aria-labelledby="headingStorage" data-bs-parent="#todoHelpAccordion">
+              <div class="accordion-body">
+                <p>Tasks are saved in <strong>localStorage</strong> so they persist after refresh.</p>
+                <pre><code class="language-typescript">
+  saveTasks() &#123;
+    localStorage.setItem('task', JSON.stringify(this.tasks));
+  &#125;
+  
+  ngOnInit() &#123;
+    const storedTasks = localStorage.getItem('task');
+    this.tasks = storedTasks ? JSON.parse(storedTasks) : [];
+  &#125;
+                </code></pre>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>
