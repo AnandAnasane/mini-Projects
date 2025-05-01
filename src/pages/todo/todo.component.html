@@ -2,19 +2,20 @@
     <h2 class="text-center">ToDo App</h2>
   
     <div class="input-group mb-3">
+     
       <input 
       *ngIf="!editedId"
         type="text" 
         class="form-control"
         (keydown.enter)="addTask()"
-      [(ngModel)]="taskTitle" placeholder="Enter task" />
+      [(ngModel)]="taskTitle" placeholder="Enter task to show in the list" />
 
       <input 
       *ngIf="editedId"
         type="text" 
         class="form-control"
         (keydown.enter)="onUpdate()"
-      [(ngModel)]="taskTitle" placeholder="Enter task" />
+      [(ngModel)]="taskTitle" placeholder="Enter task to show in the list" />
 
 
 
@@ -23,6 +24,7 @@
       <button *ngIf="editedId" class="btn btn-primary" (click)="onUpdate()">Update</button>
     </div>
   
+    <p>Task List : </p>
     <ul class="list-group">
       @for (task of tasks; track $index) {
         <li class="list-group-item d-flex justify-content-between align-items-center">
