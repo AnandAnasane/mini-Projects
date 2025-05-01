@@ -1,13 +1,26 @@
-<div class="container mt-5">
+<div class="container col-sm-12 mt-5">
     <h2 class="text-center">ToDo App</h2>
   
     <div class="input-group mb-3">
       <input 
+      *ngIf="!editedId"
         type="text" 
         class="form-control"
         (keydown.enter)="addTask()"
       [(ngModel)]="taskTitle" placeholder="Enter task" />
-      <button class="btn btn-primary" (click)="addTask()">Add</button>
+
+      <input 
+      *ngIf="editedId"
+        type="text" 
+        class="form-control"
+        (keydown.enter)="onUpdate()"
+      [(ngModel)]="taskTitle" placeholder="Enter task" />
+
+
+
+
+      <button *ngIf="!editedId" class="btn btn-primary" (click)="addTask()">Add</button>
+      <button *ngIf="editedId" class="btn btn-primary" (click)="onUpdate()">Update</button>
     </div>
   
     <ul class="list-group">
@@ -23,11 +36,15 @@
               
               <span [class.text-decoration-line-through]="task.completed">{{task.title}}</span>
               
-              @if (task.completed) {
-                <span>Done</span>
-              }
             </div>
+            <div>            
+                <span *ngIf="task.completed" class="text-success fs-6">Completed</span>
+                <span *ngIf="!task.completed" class="text-danger fs-6">Pending</span>
+            </div>
+            <div>
+              <button class="btn btn-warning btn-sm me-3" (click)="onEdit(task.id)">Edit</button>
             <button class="btn btn-danger btn-sm" (click)="onDelete(task.id)">Delete</button>
+            </div>
           </li>
       }
     </ul>

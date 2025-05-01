@@ -1,0 +1,32 @@
+<div class="container text-center mt-5 bg-light p-5 ">
+   <div>
+        <input type="text"
+        *ngIf="!editTaskId" 
+        [(ngModel)]="taskTitle"
+        (keydown.enter)="addTask()"
+               
+        >
+        <input 
+        *ngIf="editTaskId" 
+        type="text"
+        [(ngModel)]="taskTitle"
+        (keydown.enter)="onUpdate()"
+               
+        >
+        <button *ngIf="!editTaskId" (click)="addTask()">Add</button>
+        <button *ngIf="editTaskId" (click)="onUpdate()">Update</button>
+    
+   </div>
+
+   @for (todo of tasks; track $index) {
+
+    <div class="mt-5 d-flex align-item-center justify-content-center">
+        <p class="me-2">{{$index + 1}}</p>
+        <input type="checkbox" class="me-2" [(ngModel)]="todo.completed">
+        <p class="me-2" [class.text-decoration-line-through]="todo.completed">{{todo.title}}</p>
+        <button class="btn btn-warning me-3" (click)="onEdit(todo.id)">EDIT</button>
+        <button class="btn btn-danger" (click)="onDelete(todo.id)">Delete</button>
+   </div>
+   }
+
+</div>
