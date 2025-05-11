@@ -25,14 +25,54 @@
     </div>
   
     <p>Task List : </p>
-    <ul class="list-group">
+   
+
+ <table  class="table table-striped text-center">
+            <tbody>
+                @for (item of tasks; track $index) {
+                    <tr>
+                        <td>
+                          <input class="me-2 fs-1" type="checkbox" [(ngModel)]="item.completed" />
+                        </td>
+
+
+                        <td [class.text-decoration-line-through]="item.completed">
+                          {{item.title}}
+                        </td>
+
+                        <!-- <td>
+                          <div>
+                            <span *ngIf="item.completed" class="text-success fs-6">Completed</span>
+                            <span *ngIf="!item.completed" class="text-danger fs-6">Pending</span>
+                          </div>
+                        </td> -->
+
+                        <td>
+                            <button class="btn me-3 btn-warning" [disabled]="item.completed" (click)="onEdit(item.id)">Edit</button>
+                            <button class="btn btn-danger" (click)="onDelete(item.id)">Delete</button>
+                            
+                        </td>
+                    </tr>
+                }
+    
+            </tbody>
+        </table>
+
+  </div>   
+  
+  
+
+
+
+   <!-- <ul class="list-group">
       @for (task of tasks; track $index) {
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-            <span class="me-3">{{$index + 1}}</span>
+            
               <input 
-                class="me-2" 
-                type="checkbox" 
+                class="me-2 fs-1" 
+                type="checkbox"
+                 
                 [(ngModel)]="task.completed" 
                 />
               
@@ -44,14 +84,13 @@
                 <span *ngIf="!task.completed" class="text-danger fs-6">Pending</span>
             </div>
             <div>
-              <button class="btn btn-warning btn-sm me-3" (click)="onEdit(task.id)">Edit</button>
+              <button class="btn btn-warning btn-sm me-3" [disabled]="task.completed" (click)="onEdit(task.id)">Edit</button>
             <button class="btn btn-danger btn-sm" (click)="onDelete(task.id)">Delete</button>
             </div>
           </li>
       }
     </ul>
-  </div>    
-  
+   -->
 
   <!-- How it Works Section -->
 

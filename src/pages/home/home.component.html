@@ -1,1 +1,12 @@
-<p>home works!</p>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Angular Interview Preparation Guide</h2>
+    <div *ngFor="let category of categories" class="mb-4">
+      <h4 class="bg-primary text-white p-2 rounded">{{ category.title }}</h4>
+      <ul class="list-group">
+        <li *ngFor="let item of category.items" class="list-group-item">
+          {{ item }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  

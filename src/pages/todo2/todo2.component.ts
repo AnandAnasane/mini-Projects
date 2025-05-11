@@ -16,6 +16,7 @@ export class Todo2Component implements OnInit{
    const completedTask = localStorage.getItem('todo')
    this.tasks = completedTask ? JSON.parse(completedTask) : []
   }
+  
 
   taskTitle : string = '';
   tasks: Task [] = [];
@@ -67,5 +68,7 @@ export class Todo2Component implements OnInit{
   onSave(){
     localStorage.setItem('todo',JSON.stringify(this.tasks))
   }
+
+  
   
 }

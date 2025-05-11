@@ -1,0 +1,32 @@
+<p>todo3 works!</p>
+<div class="container text-center">
+
+    <!-- <label for="task">Enter The tasks</label> -->
+    <input type="text" [(ngModel)]="taskTitle" placeholder="Enter the tasks">
+    @if(!editTaskId){
+        <button class="btn btn-primary"(click)="addTask()">Add</button>
+    } @else{        
+        <button class="btn btn-primary" (click)="onUpdate()">Update</button>
+        }
+
+
+    <div class="container mt-5">
+       
+        <table  class="table table-striped">
+            <tbody>
+                @for (item of tasks; track $index) {
+                    <tr>
+                        <td><input [(ngModel)]="item.completed" type="checkbox"></td>
+                        <td [class.text-decoration-line-through]="item.completed"><h5>{{item.title}}</h5></td>
+                        <td>
+                            <button class="btn me-3 btn-warning" [disabled]="item.completed" (click)="onEdit(item.id)">Edit</button>
+                            <button class="btn btn-danger" (click)="onDelete(item.id)">Delete</button>
+                            
+                        </td>
+                    </tr>
+                }
+    
+            </tbody>
+        </table>
+    </div>
+</div>

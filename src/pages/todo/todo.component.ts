@@ -40,6 +40,8 @@ export class TodoComponent  implements OnInit
   onDelete(id: number){
    this.tasks = this.tasks.filter(task => task.id !== id)
    this.saveTasks()
+   this.taskTitle = ''
+   this.editedId = null
 
   }
 
